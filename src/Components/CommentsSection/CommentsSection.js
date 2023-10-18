@@ -6,7 +6,7 @@ import RepliesContainer from "../UI/RepliesContainer/RepliesContainer";
 const CommentsSection = ({ comments }) => {
   console.log(comments);
   return (
-    <section id={styles.comments}>
+    <section id={styles.commentsContainer}>
       <div className={styles.container}>
         {comments.map((el) =>
          {

@@ -7,6 +7,12 @@
     justify-content: center;
     background-color:$very-light-gray ;
     border-radius: 10px;
+
+    @media screen and (max-width:$mobile) {
+        flex-direction: row;
+        width: 100px;
+    }
+    
     button, label{
         height: 30px;
         width: 100%;

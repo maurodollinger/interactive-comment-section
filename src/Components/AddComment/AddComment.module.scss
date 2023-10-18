@@ -4,12 +4,41 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    
     .container{
         width: 730px;
         margin: 0 auto 60px ;
         .card{
             display: flex;
+        }       
+    }
+    @media screen and (max-width:$mobile) {
+        .container{
+            width: 100%;
+            margin:0 20px 30px;
+            .card{
+                flex-direction: column;
+            }
+            textarea{
+                order:-1;
+                margin-bottom: 20px;
+            }
+            .leftSide{
+                width: 30px;
+                height: 30px;
+                img{
+                    width: 30px;
+                    height: 30px;
+                }
+            }
+            .rightSide{
+                width: 100px;
+                position: absolute;
+                bottom: 10px;
+                right:20px;
+            }
         }
+        
     }
     .leftSide{
         min-width: 40px;
