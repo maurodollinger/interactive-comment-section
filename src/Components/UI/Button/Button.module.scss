@@ -1,0 +1,17 @@
+@import '../../../scss/variables.scss';
+
+.button{
+    background-color: $moderate-blue;
+    border:0;
+    color:white;
+    width: 100%;
+    font-family: 'Rubik', sans-serif;
+    font-size: 16px;
+    line-height: 28px;
+    border-radius: 10px;
+    padding:10px;
+    cursor: pointer;
+    &:hover,&:focus{
+        background-color: $gray-blue;
+    }
+}

@@ -1,0 +1,19 @@
+@import '../../../scss/variables.scss';
+
+.repliesContainer{
+    display: flex;
+    .leftSide{
+        min-width: 40px;
+        margin: 0 20px;
+        text-align: center;
+        span{
+            display: inline-block;
+            width: 2px;
+            height: calc(100% - 20px);
+            background-color: $light-gray;
+        }
+    }        
+    .rightSide{
+        width: 100%;
+    }
+}

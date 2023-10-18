@@ -1,0 +1,25 @@
+@import '../../../scss/variables.scss';
+
+.smallbutton{
+    background-color: transparent;
+    border:0;
+    font-family: 'Rubik', sans-serif;
+    font-size: 16px;
+    padding:10px;
+    border-radius: 10px;
+   // margin-left:10px;
+    cursor: pointer;
+    img{
+        padding-right: 5px;
+    }
+    &.reply,
+    &.edit{
+        color:$moderate-blue;
+    }
+    &.delete{
+        color:$soft-red;
+    }
+    &:hover,&:focus{
+        background-color: $very-light-gray;
+    }
+}
