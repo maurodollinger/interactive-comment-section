@@ -1,7 +1,7 @@
 @import '../../../scss/variables.scss';
 
 .button{
-    background-color: $moderate-blue;
+    
     border:0;
     color:white;
     width: 100%;
@@ -11,7 +11,23 @@
     border-radius: 10px;
     padding:10px;
     cursor: pointer;
-    &:hover,&:focus{
-        background-color: $gray-blue;
+    &.blue{
+        background-color: $moderate-blue;
+        &:hover,&:focus{
+            background-color: $gray-blue;
+        }
     }
+    &.red{
+        background-color: $soft-red;
+        &:hover,&:focus{
+            background-color: $pale-red;
+        }
+    }
+    &.gray{
+        background-color: $gray-blue;
+        &:hover,&:focus{
+            background-color: $light-gray-blue;
+        }
+    }
+    
 }

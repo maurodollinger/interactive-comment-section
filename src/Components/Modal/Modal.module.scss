@@ -1,0 +1,60 @@
+@import '../../scss/variables.scss';
+
+.backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.modal {
+    position: fixed;
+    top:0;
+    left:0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    margin: 0 auto;
+    z-index: 100;
+    overflow: hidden;
+    align-items: center;
+    justify-content: center;
+    h2{
+        color:$dark-blue;
+        font-weight: 500;
+    }
+    p{
+        color:$gray-blue;
+        line-height: 24px;
+        margin: 20px 0;
+    }
+    .modalContent{
+        padding:30px;
+        width: 400px;
+        height: 250px;
+    }
+    .actions{
+        display: flex;
+        button:first-child{
+            margin-right: 7.5px;
+        }
+        button:last-child{
+            margin-left: 7.5px;
+        }
+    }
+    @media screen and (max-width:420px) {
+        padding:15px;
+        .modalContent{
+            width: 100%;
+            height: auto;
+        }
+        button{
+            font-size: small;
+        }
+    }
+}
+
+

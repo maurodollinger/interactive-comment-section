@@ -11,7 +11,7 @@ const AddComment = ({data}) =>{
                 </div>
                 <textarea placeholder='Add a comment...'></textarea>
                 <div className={styles.rightSide}>
-                    <Button>SEND</Button>
+                    <Button type='blue'>SEND</Button>
                 </div>
             </Card>
         </div>

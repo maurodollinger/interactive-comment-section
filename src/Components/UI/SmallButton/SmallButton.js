@@ -20,7 +20,7 @@ const SmallButton = (props) => {
   }
 
   return (
-    <button className={`${styles.smallbutton} ${classType}`}>
+    <button className={`${styles.smallbutton} ${classType}`} onClick={props.onClick}>
       <img src={imgUrl} alt={props.type}></img>
       {props.type === "edit" && "Edit"}
       {props.type === "delete" && "Delete"}
