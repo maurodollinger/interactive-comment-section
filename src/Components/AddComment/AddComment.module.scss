@@ -6,8 +6,9 @@
     align-items: center;
     
     .container{
-        width: 730px;
-        margin: 0 auto 60px ;
+        max-width: 730px;
+        width: 100%;
+        margin: 0 auto;
         .card{
             display: flex;
         }       

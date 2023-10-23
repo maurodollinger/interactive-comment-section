@@ -1,27 +1,11 @@
-import { Fragment } from "react";
 import styles from "./CommentsSection.module.scss";
-import Comment from "../Comment/Comment";
-import RepliesContainer from "../UI/RepliesContainer/RepliesContainer";
+import CommentTree from "../CommentTree/CommentTree";
 
-const CommentsSection = ({ comments }) => {
-  console.log(comments);
+const CommentsSection = ({ comments, currentUser }) => {
   return (
     <section id={styles.commentsContainer}>
       <div className={styles.container}>
-        {comments.map((el) =>
-         {
-          return <Fragment>
-            <Comment data={el}/>
-            {(el.replies.length >0) && 
-            <RepliesContainer>
-              {el.replies.map((reply =>{
-                return <Comment data={reply}/>
-              }))}
-            </RepliesContainer>
-            }
-          </Fragment>
-           
-        })}
+        <CommentTree comments={comments} currentUser={currentUser} />
       </div>
     </section>
   );

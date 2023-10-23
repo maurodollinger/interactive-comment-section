@@ -19,7 +19,7 @@
     &.delete{
         color:$soft-red;
     }
-    &:hover,&:focus{
+    &:hover, &.active{
         background-color: $very-light-gray;
     }
 }

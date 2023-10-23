@@ -1,19 +1,32 @@
-import {useContext} from 'react';
+import {Fragment, useContext} from 'react';
 import AuthContext from '../../Context/auth-context';
 import Card from "../UI/Card/Card";
 import LikeAction from "../UI/LikeAction/LikeAction";
 import SmallButton from "../UI/SmallButton/SmallButton";
 import styles from "./Comment.module.scss";
 
-const Comment = ({ data }) => {
-  const {openModal} = useContext(AuthContext);
+const Comment = ({ data , onActiveReply, closeActiveReply, activeReply }) => {
+  const {username, openModal} = useContext(AuthContext);
+  
+  const handleDelete = ()=>{
+    openModal(data.id);
+  }
 
-  const handleClick = ()=>{
-    openModal();
+  const handleActiveReply = () =>{
+    if(!activeReply){
+      onActiveReply(data.id);
+    } else{
+      closeActiveReply(data.id);
+    }
+    
+  }
+
+  const handleEdit = () =>{
+    
   }
   
   return (
-    <Card className={styles.commentContainer}>
+    <Card className={styles.commentContainer} >
       <div className={styles.leftSide}>
           <LikeAction/>
       </div>
@@ -24,9 +37,14 @@ const Comment = ({ data }) => {
           <span>{data.createdAt}</span>
         </div>
         <div className={styles.actions}>
-          <SmallButton type="edit" onClick={handleClick}/>
-          <SmallButton type="delete" onClick={handleClick}/>
-          <SmallButton type="reply" onClick={handleClick}/>
+          {(data.user.username === username) ?
+            <Fragment>
+              <SmallButton type="delete" onClick={handleDelete}/>
+              <SmallButton type="edit" onClick={handleEdit}/>
+             </Fragment>
+             : <SmallButton active={activeReply} type="reply" onClick={handleActiveReply}/>
+          }          
+          
         </div>
         <div className={styles.comment}>
           <p>{data.content}</p>

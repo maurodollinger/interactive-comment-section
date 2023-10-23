@@ -1,3 +1,5 @@
+import { useContext } from "react";
+import AuthContext from "../../Context/auth-context";
 import ReactDOM from "react-dom";
 import { Fragment } from "react";
 import Card from "../UI/Card/Card";
@@ -23,7 +25,7 @@ const OverlayModal = (props) => {
         </div>
         <footer className={styles.actions}>
           <Button type='gray' onClick={props.onClose}>NO, CANCEL</Button>
-          <Button type='red'>YES, DELETE</Button>
+          <Button type='red' onClick={()=>props.onDelete()}>YES, DELETE</Button>
         </footer>
       </Card>
     </div>
@@ -31,6 +33,14 @@ const OverlayModal = (props) => {
 };
 
 const Modal = (props) => {
+
+  const {deleteComment} = useContext(AuthContext);
+
+  const handleDelete = () =>{
+    deleteComment(props.passID);
+  }
+
+  
   return (
     <Fragment>
       {ReactDOM.createPortal(
@@ -38,7 +48,7 @@ const Modal = (props) => {
         document.getElementById("backdrop-root")
       )}
       {ReactDOM.createPortal(
-        <OverlayModal onClose={props.onClose} />,
+        <OverlayModal onClose={props.onClose} onDelete={handleDelete}/>,
         document.getElementById("overlay-root")
       )}
     </Fragment>
