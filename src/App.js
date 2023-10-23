@@ -40,16 +40,15 @@ function App() {
       user:currentUser,
       replies:[]
     }
-    let newComments = comments;
+    let newComments = [...comments];
     newComments.forEach(obj => {      
       addReplyWithID(obj,replyId,newTextReply);
     });
-    console.log(newComments);
     setComments(newComments);
   }
 
   const deleteComment = (idToDelete) =>{
-    let newComments = comments;
+    let newComments = [...comments];
     newComments.forEach(obj => {
       deleteCommentByID(obj, idToDelete);
     });
@@ -77,6 +76,23 @@ function App() {
     }
   }
 
+  const updateComment = (value, id) =>{
+    const newComments = updateCommentById([...comments],id,value);
+    setComments(newComments);
+  }
+
+  const updateCommentById = (comments, id, newValue) => {
+    return comments.map(comment => {
+      if (comment.id === id) {
+        return { ...comment, content: newValue };
+      } else if (comment.replies && comment.replies.length > 0) {
+        const newReplies = updateCommentById(comment.replies, id, newValue);
+        return { ...comment, replies: newReplies };
+      }
+      return comment;
+    });
+  };
+  
 
   return (
     <div className="App">
@@ -86,6 +102,7 @@ function App() {
         addComment={addComment}
         deleteComment={deleteComment}
         addReply={addReply}
+        onUpdateComment={updateComment}
       >
         <CommentsSection comments={comments} currentUser={currentUser} />
         <AddComment currentUser={currentUser} type='comment'/>
