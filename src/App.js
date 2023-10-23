@@ -92,7 +92,23 @@ function App() {
       return comment;
     });
   };
+
+  const handleVote = (value ,id) =>{
+    const newComments = updateScoreById([...comments],id, value);
+    setComments(newComments);
+  }
   
+  const updateScoreById = (comments,id,newScore) =>{
+    return comments.map(comment => {
+      if(comment.id === id) {
+        return {...comment, score: comment.score + newScore}
+      } else if (comment.replies && comment.replies.length >0) {
+        const newReplies = updateScoreById(comment.replies,id,newScore);
+        return {...comment,replies:newReplies};
+      }
+      return comment
+    })
+  }
 
   return (
     <div className="App">
@@ -103,6 +119,7 @@ function App() {
         deleteComment={deleteComment}
         addReply={addReply}
         onUpdateComment={updateComment}
+        updateScore={handleVote}
       >
         <CommentsSection comments={comments} currentUser={currentUser} />
         <AddComment currentUser={currentUser} type='comment'/>

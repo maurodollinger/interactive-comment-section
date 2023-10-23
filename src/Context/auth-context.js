@@ -7,7 +7,8 @@ const AuthContext = React.createContext({
   addComment: () => {},
   deleteComment: ()=>{},
   addReply: ()=>{},
-  onUpdateComment: ()=>{}
+  onUpdateComment: ()=>{},
+  updateScore:()=>{}
 });
 
 export const AuthContextProvider = (props) => {
@@ -20,7 +21,8 @@ export const AuthContextProvider = (props) => {
         addComment: props.addComment,
         deleteComment:props.deleteComment,
         addReply:props.addReply,
-        onUpdateComment:props.onUpdateComment
+        onUpdateComment:props.onUpdateComment,
+        updateScore:props.updateScore
       }}
     >
       {props.children}

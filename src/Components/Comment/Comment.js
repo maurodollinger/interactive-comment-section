@@ -1,7 +1,7 @@
-import { Fragment, useContext, useRef } from "react";
+import { Fragment, useContext, useRef, useState} from "react";
 import AuthContext from "../../Context/auth-context";
 import Card from "../UI/Card/Card";
-import LikeAction from "../UI/LikeAction/LikeAction";
+import LikeAction from "../LikeAction/LikeAction";
 import SmallButton from "../UI/SmallButton/SmallButton";
 import Button from "../UI/Button/Button";
 import styles from "./Comment.module.scss";
@@ -15,7 +15,8 @@ const Comment = ({
   activeEdit,
   closeActiveEdit
 }) => {
-  const { username, openModal, onUpdateComment } = useContext(AuthContext);
+  const { username, openModal, onUpdateComment , updateScore} = useContext(AuthContext);
+  const [enableScore,setEnableScore] = useState(true);
   const textareaRef = useRef(null);
 
   const handleDelete = () => {
@@ -39,10 +40,16 @@ const Comment = ({
     closeActiveEdit(data.id);
   }
 
+  const handleVote = (value) =>{
+    updateScore(value, data.id);
+    setEnableScore(false);
+  }
+
+
   return (
     <Card className={styles.commentContainer}>
       <div className={styles.leftSide}>
-        <LikeAction />
+        <LikeAction score={data.score} vote={handleVote} enabled={enableScore}/>
       </div>
       <div className={styles.rightSide}>
         <div className={styles.author}>
