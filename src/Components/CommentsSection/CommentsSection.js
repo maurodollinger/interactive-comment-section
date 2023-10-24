@@ -5,7 +5,7 @@ const CommentsSection = ({ comments, currentUser }) => {
   return (
     <section id={styles.commentsContainer}>
       <div className={styles.container}>
-        <CommentTree comments={comments} currentUser={currentUser} />
+        <CommentTree comments={comments} currentUser={currentUser} path='/'/>
       </div>
     </section>
   );

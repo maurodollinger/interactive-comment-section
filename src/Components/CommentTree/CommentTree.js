@@ -3,7 +3,7 @@ import Comment from "../Comment/Comment";
 import AddComment from "../AddComment/AddComment";
 import RepliesContainer from "../UI/RepliesContainer/RepliesContainer";
 
-const CommentTree = ({ comments, currentUser }) => {
+const CommentTree = ({ comments, currentUser , path}) => {
   const [activeReplies, setActiveReplies] = useState([]);
   const [activeEdits, setActiveEdits] = useState([]);
 
@@ -44,17 +44,19 @@ const CommentTree = ({ comments, currentUser }) => {
             {activeReplies.includes(comment.id) && (
               <AddComment
                 currentUser={currentUser}
-                replyId={comment.id}
+                replyPath={path + comment.id + '/replies/'}
+                parentCommentID={comment.id}
                 replyUser={comment.user}
                 type="reply"
                 closeActiveReply={() => closeActiveReply(comment.id)}
               />
             )}
-            {comment.replies && comment.replies.length > 0 && (
+            {comment.replies && Object.values(comment.replies).length > 0 && (
               <RepliesContainer>
                 <CommentTree
-                  comments={comment.replies}
+                  comments={Object.values(comment.replies)}
                   currentUser={currentUser}
+                  path={path+ comment.id + '/replies/'}
                 />
               </RepliesContainer>
             )}

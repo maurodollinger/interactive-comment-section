@@ -4,16 +4,16 @@ import Card from "../UI/Card/Card";
 import styles from "./AddComment.module.scss";
 import AuthContext from "../../Context/auth-context";
 
-const AddComment = ({ currentUser, replyUser, replyId, type , closeActiveReply}) => {
+const AddComment = ({ currentUser, replyUser, replyPath, parentCommentID, type , closeActiveReply}) => {
   const { addComment, addReply } = useContext(AuthContext);
   const textareaRef = useRef(null);
 
   const handleSend = () => {
-    addComment(textareaRef.current.value);
+    if(textareaRef.current.value !== '') addComment(textareaRef.current.value);
   };
 
   const handleReply = () => {
-    addReply(textareaRef.current.value, replyId);
+    addReply(textareaRef.current.value, replyPath, parentCommentID);
     closeActiveReply();
   };
 

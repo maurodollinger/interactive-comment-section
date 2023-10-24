@@ -36,8 +36,10 @@ const Comment = ({
   };
 
   const handleUpdate = () =>{
-    onUpdateComment(textareaRef.current.value, data.id);
-    closeActiveEdit(data.id);
+    if(textareaRef.current.value !== ''){
+      onUpdateComment(textareaRef.current.value, data.id);
+      closeActiveEdit(data.id);
+    }   
   }
 
   const handleVote = (value) =>{
@@ -47,6 +49,7 @@ const Comment = ({
 
 
   return (
+    data && 
     <Card className={styles.commentContainer}>
       <div className={styles.leftSide}>
         <LikeAction score={data.score} vote={handleVote} enabled={enableScore}/>
