@@ -44,7 +44,7 @@ const Comment = ({
   }
 
   const handleVote = (value) =>{
-    updateScore(value, data.id);
+    updateScore(data.score+value, data.id, path);
     setEnableScore(false);
   }
 

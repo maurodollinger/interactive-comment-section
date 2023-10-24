@@ -131,9 +131,9 @@ function App() {
       obj.replies.forEach(reply => deleteCommentByID(reply, selectedID));
     } else{      
       if(obj.id === selectedID){
-        console.log(obj);
         return null;
-      }    }
+      }  
+     }
     return obj;
   }
 
@@ -165,17 +165,30 @@ function App() {
     });
   };
 
-  const handleVote = (value ,id) =>{
+  const handleVote = (newScore ,idToUpdate, path) =>{
+    const db = getDatabase();
+    const commentRef = ref(db,'comments/'+path);
+    update(commentRef,{
+      score: newScore
+    })
+    .then(() => {
+      const newComments = updateScoreById([...comments],idToUpdate,newScore);
+      setComments(newComments);
+    })
+    .catch((error) => {
+      console.error('Error al actualizar comentario en Firebase:', error);
+    });
+/*
     const newComments = updateScoreById([...comments],id, value);
-    setComments(newComments);
+    setComments(newComments);*/
   }
   
   const updateScoreById = (comments,id,newScore) =>{
     return comments.map(comment => {
       if(comment.id === id) {
-        return {...comment, score: comment.score + newScore}
-      } else if (comment.replies && comment.replies.length >0) {
-        const newReplies = updateScoreById(comment.replies,id,newScore);
+        return {...comment, score: newScore}
+      } else if (comment.replies && Object.values(comment.replies).length >0) {
+        const newReplies = updateScoreById(Object.values(comment.replies),id,newScore);
         return {...comment,replies:newReplies};
       }
       return comment
