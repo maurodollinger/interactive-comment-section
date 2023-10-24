@@ -38,7 +38,7 @@ const Comment = ({
 
   const handleUpdate = () =>{
     if(textareaRef.current.value !== ''){
-      onUpdateComment(textareaRef.current.value, data.id);
+      onUpdateComment(textareaRef.current.value, data.id,path);
       closeActiveEdit(data.id);
     }   
   }

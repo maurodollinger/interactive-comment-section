@@ -20,7 +20,7 @@ function App() {
     const dbRef = ref(database); 
     get(child(dbRef, '/')).then((snapshot) => {
       if (snapshot.exists()) {
-        console.log(snapshot.val());
+        //console.log(snapshot.val());
         const data = snapshot.val();
         setComments(Object.values(data.comments));
         setCurrentUser(data.currentUser);
@@ -109,14 +109,16 @@ function App() {
   const deleteComment = (idToDelete,pathToDelete) =>{
     const db = getDatabase();
     const refDelete = ref(db, 'comments/'+pathToDelete); 
-        
+         
     remove(refDelete)
     .then(() => {    
       const newComments = [...comments];
-      newComments.forEach(obj => {
-        deleteCommentByID(obj, idToDelete);
+      newComments.forEach((comment, index) => {
+        newComments[index] = deleteCommentByID(comment, idToDelete);
       });
-      setComments(newComments);
+      const filteredComments = newComments.filter((comment) => comment !== null);
+    //  console.log(filteredComments);
+      setComments(filteredComments);
     })
     .catch((error) => {
       console.error('Error al eliminar datos:', error);
@@ -124,23 +126,39 @@ function App() {
   }
 
   const deleteCommentByID = (obj, selectedID) =>{
-    if(obj.replies){
+    if(obj.replies && Object.values(obj.replies).length){
       obj.replies = Object.values(obj.replies).filter(reply => reply.id !== selectedID);
       obj.replies.forEach(reply => deleteCommentByID(reply, selectedID));
-    }
+    } else{      
+      if(obj.id === selectedID){
+        console.log(obj);
+        return null;
+      }    }
+    return obj;
   }
 
-  const updateComment = (value, id) =>{
-    const newComments = updateCommentById([...comments],id,value);
-    setComments(newComments);
+  const updateComment = (value, idToUpdate,pathToUpdate) =>{
+    const db = getDatabase();
+    const commentRef = ref(db,'comments/'+pathToUpdate);
+    update(commentRef,{
+      content: value
+    })
+    .then(() => {
+      const newComments = updateCommentById([...comments],idToUpdate,value);
+      setComments(newComments);
+    })
+    .catch((error) => {
+      console.error('Error al actualizar comentario en Firebase:', error);
+    });
+    
   }
 
   const updateCommentById = (comments, id, newValue) => {
     return comments.map(comment => {
       if (comment.id === id) {
         return { ...comment, content: newValue };
-      } else if (comment.replies && comment.replies.length > 0) {
-        const newReplies = updateCommentById(comment.replies, id, newValue);
+      } else if (comment.replies) {
+        const newReplies = updateCommentById(Object.values(comment.replies), id, newValue);
         return { ...comment, replies: newReplies };
       }
       return comment;
