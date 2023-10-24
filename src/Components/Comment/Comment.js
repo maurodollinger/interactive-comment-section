@@ -8,6 +8,7 @@ import styles from "./Comment.module.scss";
 
 const Comment = ({
   data,
+  path,
   onActiveReply,
   closeActiveReply,
   activeReply,
@@ -20,7 +21,7 @@ const Comment = ({
   const textareaRef = useRef(null);
 
   const handleDelete = () => {
-    openModal(data.id);
+    openModal(data.id,path);
   };
 
   const handleActiveReply = () => {

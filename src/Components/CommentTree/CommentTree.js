@@ -34,6 +34,7 @@ const CommentTree = ({ comments, currentUser , path}) => {
           <Fragment key={comment.id}>
             <Comment
               data={comment}
+              path={path+comment.id}
               onActiveReply={openActiveReply}
               closeActiveReply={() => closeActiveReply(comment.id)}
               activeReply={activeReplies.includes(comment.id)}

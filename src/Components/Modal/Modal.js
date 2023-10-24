@@ -37,7 +37,7 @@ const Modal = (props) => {
   const {deleteComment} = useContext(AuthContext);
 
   const handleDelete = () =>{
-    deleteComment(props.passID);
+    deleteComment(props.passID,props.path);
   }
 
   

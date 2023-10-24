@@ -5,14 +5,14 @@ import CommentsSection from "./Components/CommentsSection/CommentsSection";
 import { AuthContextProvider } from "./Context/auth-context";
 //import jsonData from "./data/data.json";
 import { database } from './firebaseConfig';
-import { getDatabase, ref, child, push, get, update,set } from "firebase/database";
+import { getDatabase, ref, child, push, get, update,set,remove } from "firebase/database";
 //import { commentScheme } from "./data/commentScheme";
 
 
 
 function App() {
  // const [data, setData] = useState(null);
-  const [modalOpen, setModalOpen] = useState({open:false,id:0});
+  const [modalOpen, setModalOpen] = useState({open:false,id:0,path:''});
   const [comments, setComments] = useState();
   const [currentUser, setCurrentUser] = useState();
 
@@ -32,12 +32,12 @@ function App() {
     });
   }, []);
 
-  const openModal = (id) => {
-    setModalOpen({open:true,id:id});
+  const openModal = (id, path) => {
+    setModalOpen({open:true,id:id,path:path});
   };
 
   const closeModal = () => {
-    setModalOpen({open:false,id:0});
+    setModalOpen({open:false,id:0,path:''});
   };
 
   const addComment = (newValue) => {
@@ -76,9 +76,10 @@ function App() {
       user:currentUser,
       replies:[]
     }     
+    
     update(ref(database, 'comments/' + newPath), newTextReply)
     .then(() => {
-      let newComments = [...comments];
+      const newComments = [...comments];
       newComments.forEach(obj => {      
         addReplyWithID(obj,parentCommentID,newTextReply);
       });
@@ -87,44 +88,44 @@ function App() {
     .catch((error) => {
       console.error('Error al agregar la respuesta:', error);
     });
-    /*
-    let newComments = [...comments];
-    newComments.forEach(obj => {      
-      addReplyWithID(obj,replyId,newTextReply);
-    });
-    setComments(newComments);*/
-  }
-
-  
+  }  
 
   const addReplyWithID = (obj,selectedID,newTextReply) =>{
     if(obj.id === selectedID){
-      if(!obj.replies){
+      if (!obj.replies) {
         obj.replies =[]
-      }      
+      } else{
+        obj.replies = Object.values(obj.replies);
+      }     
       obj.replies.push(newTextReply);
     } 
-    else if(Array.isArray(obj.replies)){
-      obj.replies.forEach(reply =>{
+    else if(obj.replies){
+      Object.values(obj.replies).forEach(reply =>{
         addReplyWithID(reply,selectedID,newTextReply);
       })
     }
   }
 
-  const deleteComment = (idToDelete) =>{
-    let newComments = [...comments];
-    newComments.forEach(obj => {
-      deleteCommentByID(obj, idToDelete);
+  const deleteComment = (idToDelete,pathToDelete) =>{
+    const db = getDatabase();
+    const refDelete = ref(db, 'comments/'+pathToDelete); 
+        
+    remove(refDelete)
+    .then(() => {    
+      const newComments = [...comments];
+      newComments.forEach(obj => {
+        deleteCommentByID(obj, idToDelete);
+      });
+      setComments(newComments);
+    })
+    .catch((error) => {
+      console.error('Error al eliminar datos:', error);
     });
-    setComments(newComments);
   }
 
   const deleteCommentByID = (obj, selectedID) =>{
-    if(obj.id === selectedID){
-
-    }
     if(obj.replies){
-      obj.replies = obj.replies.filter(reply => reply.id !== selectedID);
+      obj.replies = Object.values(obj.replies).filter(reply => reply.id !== selectedID);
       obj.replies.forEach(reply => deleteCommentByID(reply, selectedID));
     }
   }
@@ -177,7 +178,7 @@ function App() {
       >
         <CommentsSection comments={comments} currentUser={currentUser} />
         <AddComment currentUser={currentUser} type='comment'/>
-        {modalOpen.open && <Modal onClose={closeModal} passID={modalOpen.id}></Modal>}
+        {modalOpen.open && <Modal onClose={closeModal} passID={modalOpen.id} path={modalOpen.path}></Modal>}
       </AuthContextProvider>
       ) : (
         <section className="loading">Loading content...</section>
