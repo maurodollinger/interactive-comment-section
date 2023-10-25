@@ -34,7 +34,10 @@ function App() {
         if (snapshot.exists()) {
           const data = snapshot.val();
           setComments(Object.values(data.comments));
-          setCurrentUser(data.currentUser);
+          // get a random user
+          const users = Object.values(data.users);
+          const randomUser = users[Math.floor(Math.random()*users.length)];
+          setCurrentUser(randomUser);
         } else {
           setErrorLog({
             open: true,
@@ -104,7 +107,7 @@ function App() {
     let newTextReply = {
       id: newReplyKey,
       content: newValue,
-      createdAt: "Today",
+      createdAt: getActualDate(),
       score: 1,
       user: currentUser,
       replies: [],
