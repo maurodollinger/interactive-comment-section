@@ -1,4 +1,5 @@
 import { Fragment, useContext, useRef, useState ,useEffect} from "react";
+import { formatDistanceToNow } from 'date-fns';
 import AuthContext from "../../Context/auth-context";
 import Card from "../UI/Card/Card";
 import LikeAction from "../LikeAction/LikeAction";
@@ -63,7 +64,9 @@ const Comment = ({
         <div className={styles.author}>
           <img src={data.user.image.webp} alt="author"></img>
           <div>{data.user.username}</div>
-          <span>{data.createdAt}</span>
+          <span>{            
+          formatDistanceToNow(new Date(data.createdAt))
+          }</span>
         </div>
         <div className={styles.actions}>
           {data.user.username === username ? (
