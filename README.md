@@ -31,8 +31,8 @@ Users should be able to:
 
 ### Links
 
-- Solution URL: [Add solution URL here](https://github.com/maurodollinger/interactive-comment-section)
-- Live Site URL: [Add live site URL here](https://github.com/maurodollinger/interactive-comment-section/build/)
+- Solution URL: [Github](https://github.com/maurodollinger/interactive-comment-section)
+- Live Site URL: [GitHub Page](https://github.com/maurodollinger/interactive-comment-section/build/)
 
 ## My process
 
@@ -67,9 +67,9 @@ I want to improve the score functionality, now it only blocks the opportunity to
 
 ## Author
 
-- Website - [Add your name here](https://www.maurodollinger.com.ar)
-- Frontend Mentor - [@yourusername](https://www.frontendmentor.io/profile/maurodollinger)
-- Twitter - [@yourusername](https://www.twitter.com/dollingermauro)
+- Website - [Mauro Dollinger](https://www.maurodollinger.com.ar)
+- Frontend Mentor - [@maurodollinger](https://www.frontendmentor.io/profile/maurodollinger)
+- Twitter - [@dollingermauro](https://www.twitter.com/dollingermauro)
 
 **Note: Delete this note and add/remove/edit lines above based on what links you'd like to share.**
 
