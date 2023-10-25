@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext ,useState, useEffect} from "react";
 import AuthContext from "../../Context/auth-context";
 import ReactDOM from "react-dom";
 import { Fragment } from "react";
@@ -6,13 +6,13 @@ import Card from "../UI/Card/Card";
 import Button from "../UI/Button/Button";
 import styles from "./Modal.module.scss";
 
-const Backdrop = () => {
-  return <div className={styles.backdrop}></div>;
+const Backdrop = (props) => {
+  return <div className={`${styles.backdrop} ${props.className}`}></div>;
 };
 
 const OverlayModal = (props) => {
   return (
-    <div className={styles.modal}  onClick={props.onClose}>
+    <div className={`${styles.modal} ${props.className}`}  onClick={props.onClose}>
       <Card className={styles.modalContent}>
         <header>
           <h2>Delete comment</h2>
@@ -33,6 +33,7 @@ const OverlayModal = (props) => {
 };
 
 const Modal = (props) => {
+  const [fadeIn,setFadeIn] = useState(false);
 
   const {deleteComment} = useContext(AuthContext);
 
@@ -40,15 +41,17 @@ const Modal = (props) => {
     deleteComment(props.passID,props.path);
   }
 
-  
+  useEffect(() => {
+  setFadeIn(true);
+}, []);
   return (
     <Fragment>
       {ReactDOM.createPortal(
-        <Backdrop/>,
+        <Backdrop className={fadeIn ? styles.fadeIn : ''}/>,
         document.getElementById("backdrop-root")
       )}
       {ReactDOM.createPortal(
-        <OverlayModal onClose={props.onClose} onDelete={handleDelete}/>,
+        <OverlayModal className={fadeIn ? styles.fadeIn : ''} onClose={props.onClose} onDelete={handleDelete}/>,
         document.getElementById("overlay-root")
       )}
     </Fragment>

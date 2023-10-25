@@ -1,4 +1,4 @@
-import { Fragment, useContext, useRef, useState} from "react";
+import { Fragment, useContext, useRef, useState ,useEffect} from "react";
 import AuthContext from "../../Context/auth-context";
 import Card from "../UI/Card/Card";
 import LikeAction from "../LikeAction/LikeAction";
@@ -18,6 +18,7 @@ const Comment = ({
 }) => {
   const { username, openModal, onUpdateComment , updateScore} = useContext(AuthContext);
   const [enableScore,setEnableScore] = useState(true);
+  const [fadeIn,setFadeIn] = useState(false);
   const textareaRef = useRef(null);
 
   const handleDelete = () => {
@@ -48,10 +49,13 @@ const Comment = ({
     setEnableScore(false);
   }
 
-
+  useEffect(() => {
+    setFadeIn(true);
+  }, []);
+  
   return (
     data && 
-    <Card className={styles.commentContainer}>
+    <Card className={`${styles.commentContainer} ${fadeIn ? styles.fadeIn : ''}`}>
       <div className={styles.leftSide}>
         <LikeAction score={data.score} vote={handleVote} enabled={enableScore}/>
       </div>

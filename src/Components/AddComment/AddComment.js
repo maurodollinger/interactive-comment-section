@@ -1,4 +1,4 @@
-import { useContext, useRef } from "react";
+import { useContext, useRef , useState, useEffect} from "react";
 import Button from "../UI/Button/Button";
 import Card from "../UI/Card/Card";
 import styles from "./AddComment.module.scss";
@@ -6,6 +6,7 @@ import AuthContext from "../../Context/auth-context";
 
 const AddComment = ({ currentUser, replyUser, replyPath, parentCommentID, type , closeActiveReply}) => {
   const { addComment, addReply } = useContext(AuthContext);
+  const [fadeIn,setFadeIn] = useState(false);
   const textareaRef = useRef(null);
 
   const handleSend = () => {
@@ -17,8 +18,12 @@ const AddComment = ({ currentUser, replyUser, replyPath, parentCommentID, type ,
     closeActiveReply();
   };
 
+  useEffect(() => {
+    setFadeIn(true);
+  }, []);
+
   return (
-    <section className={styles.addcomment}>
+    <section className={`${styles.addcomment} ${fadeIn ? styles.fadeIn : ''}`}>
       <div className={styles.container}>
         <Card className={styles.card}>
           <div className={styles.leftSide}>

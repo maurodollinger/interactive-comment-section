@@ -227,7 +227,7 @@ function App() {
         <ErrorModal active={errorLog.open} message='' dismiss={()=>setErrorLog({open:false,message:'',error:''})}></ErrorModal>
       </AuthContextProvider>
       ) : (
-        <section className="loading">Loading content...</section>
+        <section className="loading">Loading comments...</section>
       )
       }      
     </div>
