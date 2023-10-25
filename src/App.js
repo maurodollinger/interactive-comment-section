@@ -6,13 +6,11 @@ import { AuthContextProvider } from "./Context/auth-context";
 //import jsonData from "./data/data.json";
 import { database } from './firebaseConfig';
 import { getDatabase, ref, child, push, get, update,set,remove } from "firebase/database";
-//import { commentScheme } from "./data/commentScheme";
-
-
+import ErrorModal from "./Components/ErrorModal/ErrorModal";
 
 function App() {
- // const [data, setData] = useState(null);
   const [modalOpen, setModalOpen] = useState({open:false,id:0,path:''});
+  const [errorLog, setErrorLog] = useState({open:false,message:'', error:''});
   const [comments, setComments] = useState();
   const [currentUser, setCurrentUser] = useState();
 
@@ -20,15 +18,20 @@ function App() {
     const dbRef = ref(database); 
     get(child(dbRef, '/')).then((snapshot) => {
       if (snapshot.exists()) {
-        //console.log(snapshot.val());
         const data = snapshot.val();
         setComments(Object.values(data.comments));
         setCurrentUser(data.currentUser);
       } else {
-        console.log("No data available");
+        setErrorLog({open:true, message:'No data available: ', error:'error'});
+        setTimeout(()=>{
+          setErrorLog({open:false,message:'',error:''});
+        },3000);
       }
     }).catch((error) => {
-      console.error(error);
+      setErrorLog({open:true, message:'Error loading comment: ', error:error});
+      setTimeout(()=>{
+        setErrorLog({open:false,message:'',error:''});
+      },3000);
     });
   }, []);
 
@@ -60,7 +63,10 @@ function App() {
       setComments([...comments, newComment]);
     })
     .catch((error) => {
-      console.error('Error al agregar el comentario:', error);
+      setErrorLog({open:true, message:'Error adding comment: ', error:error});
+      setTimeout(()=>{
+        setErrorLog({open:false,message:'',error:''});
+      },3000);
     });
   };
 
@@ -86,7 +92,10 @@ function App() {
       setComments(newComments);
     })
     .catch((error) => {
-      console.error('Error al agregar la respuesta:', error);
+      setErrorLog({open:true, message:'Error adding response: ', error:error});
+      setTimeout(()=>{
+        setErrorLog({open:false,message:'',error:''});
+      },3000);
     });
   }  
 
@@ -117,11 +126,13 @@ function App() {
         newComments[index] = deleteCommentByID(comment, idToDelete);
       });
       const filteredComments = newComments.filter((comment) => comment !== null);
-    //  console.log(filteredComments);
       setComments(filteredComments);
     })
     .catch((error) => {
-      console.error('Error al eliminar datos:', error);
+      setErrorLog({open:true, message:'Error deleting data: ', error:error});
+      setTimeout(()=>{
+        setErrorLog({open:false,message:'',error:''});
+      },3000);
     });
   }
 
@@ -148,7 +159,10 @@ function App() {
       setComments(newComments);
     })
     .catch((error) => {
-      console.error('Error al actualizar comentario en Firebase:', error);
+      setErrorLog({open:true, message:'Error updating comment: ', error:error});
+      setTimeout(()=>{
+        setErrorLog({open:false,message:'',error:''});
+      },3000);
     });
     
   }
@@ -176,11 +190,11 @@ function App() {
       setComments(newComments);
     })
     .catch((error) => {
-      console.error('Error al actualizar comentario en Firebase:', error);
+      setErrorLog({open:true, message:'Error updating comment: ', error:error});
+      setTimeout(()=>{
+        setErrorLog({open:false,message:'',error:''});
+      },3000);
     });
-/*
-    const newComments = updateScoreById([...comments],id, value);
-    setComments(newComments);*/
   }
   
   const updateScoreById = (comments,id,newScore) =>{
@@ -210,6 +224,7 @@ function App() {
         <CommentsSection comments={comments} currentUser={currentUser} />
         <AddComment currentUser={currentUser} type='comment'/>
         {modalOpen.open && <Modal onClose={closeModal} passID={modalOpen.id} path={modalOpen.path}></Modal>}
+        <ErrorModal active={errorLog.open} message='' dismiss={()=>setErrorLog({open:false,message:'',error:''})}></ErrorModal>
       </AuthContextProvider>
       ) : (
         <section className="loading">Loading content...</section>

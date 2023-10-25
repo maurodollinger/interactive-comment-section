@@ -1,0 +1,36 @@
+@import '../../scss/variables.scss';
+
+.errorModal{
+    position: fixed;
+    top: 0px;
+    text-align: center;
+    width: 730px;
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    opacity: 0;
+    transition: top 0.3s, opacity 0.3s;
+    &.on{
+        top:10px;
+        opacity: 1;
+    }
+    @media screen and (max-width:$mobile) {
+        width: 100%;
+    }
+    .errorCard{
+        background-color:$pale-red ;
+        padding: 5px;
+        font-size: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    button{
+        background-color: white;
+        border:none;
+        cursor: pointer;
+        padding: 4px;
+        border-radius: 10px;
+    }
+}
