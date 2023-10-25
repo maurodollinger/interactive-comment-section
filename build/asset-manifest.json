@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/static/css/main.f2505275.css",
-    "main.js": "/static/js/main.ca36daa6.js",
-    "static/js/787.ba7a5089.chunk.js": "/static/js/787.ba7a5089.chunk.js",
-    "index.html": "/index.html",
-    "main.f2505275.css.map": "/static/css/main.f2505275.css.map",
-    "main.ca36daa6.js.map": "/static/js/main.ca36daa6.js.map",
-    "787.ba7a5089.chunk.js.map": "/static/js/787.ba7a5089.chunk.js.map"
+    "main.css": "/interactive-comment-section/build/static/css/main.f2505275.css",
+    "main.js": "/interactive-comment-section/build/static/js/main.0a0bbf79.js",
+    "static/js/787.ba7a5089.chunk.js": "/interactive-comment-section/build/static/js/787.ba7a5089.chunk.js",
+    "index.html": "/interactive-comment-section/build/index.html",
+    "main.f2505275.css.map": "/interactive-comment-section/build/static/css/main.f2505275.css.map",
+    "main.0a0bbf79.js.map": "/interactive-comment-section/build/static/js/main.0a0bbf79.js.map",
+    "787.ba7a5089.chunk.js.map": "/interactive-comment-section/build/static/js/787.ba7a5089.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.f2505275.css",
-    "static/js/main.ca36daa6.js"
+    "static/js/main.0a0bbf79.js"
   ]
 }
