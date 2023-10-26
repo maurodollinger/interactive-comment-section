@@ -14,7 +14,7 @@ const AddComment = ({ currentUser, replyUser, replyPath, parentCommentID, type ,
   };
 
   const handleReply = () => {
-    addReply(textareaRef.current.value, replyPath, parentCommentID);
+    addReply(textareaRef.current.value, replyPath, parentCommentID, replyUser.username);
     closeActiveReply();
   };
 
@@ -38,8 +38,8 @@ const AddComment = ({ currentUser, replyUser, replyPath, parentCommentID, type ,
           {replyUser && (
             <textarea
               ref={textareaRef}
-              placeholder={`@${replyUser.username}`}
-              defaultValue={`@${replyUser.username} `}
+             /* placeholder={`@${replyUser.username}`}
+              defaultValue={`@${replyUser.username} `}*/
             ></textarea>
           )}
           <div className={styles.rightSide}>

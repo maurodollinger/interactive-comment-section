@@ -14,10 +14,11 @@
     }
     
     button, label{
-        height: 30px;
+        height: 35px;
         width: 100%;
         display: grid;
         place-items: center;
+        font-weight: 500;
     }
     button{
         cursor: pointer;

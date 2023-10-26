@@ -64,6 +64,9 @@ const Comment = ({
         <div className={styles.author}>
           <img src={data.user.image.webp} alt="author"></img>
           <div>{data.user.username}</div>
+          {data.user.username === username && (
+            <label className={styles.badge}>you</label>
+          )}
           <span>{            
           formatDistanceToNow(new Date(data.createdAt))
           }</span>
@@ -89,7 +92,10 @@ const Comment = ({
               defaultValue={data.content}
             ></textarea>
           ) : (
-            <p>{data.content}</p>
+            <p>
+              {(data.replyingTo) && <span>@{data.replyingTo} </span>}
+              {data.content}
+            </p>
           )}        
         </div>
         {activeEdit && <div className={styles.buttonContainer}>

@@ -37,7 +37,7 @@ function Home() {
           const users = Object.values(data.users);
           const randomUser = users[Math.floor(Math.random()*users.length)];
           setCurrentUser(randomUser);
-          printMessageLog("You have succesfully logged in as " + randomUser.username, "");
+         //printMessageLog("You have succesfully logged in as " + randomUser.username, "");
         } else {
             printMessageLog("No data available: ", "error");
         }
@@ -90,7 +90,7 @@ function Home() {
       });
   };
 
-  const addReply = (newValue, replyPath, parentCommentID) => {
+  const addReply = (newValue, replyPath, parentCommentID, replyUser) => {
     const newReplyKey = push(ref(database, "comments/" + replyPath)).key;
     const newPath = replyPath + newReplyKey;
 
@@ -98,6 +98,7 @@ function Home() {
       id: newReplyKey,
       content: newValue,
       createdAt: getActualDate(),
+      replyingTo:replyUser,
       score: 1,
       user: currentUser,
       replies: [],
