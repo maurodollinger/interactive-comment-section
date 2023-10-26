@@ -32,7 +32,7 @@ Users should be able to:
 ### Links
 
 - Solution URL: [Github](https://github.com/maurodollinger/interactive-comment-section)
-- Live Site URL: [GitHub Page](https://github.com/maurodollinger/interactive-comment-section/build/)
+- Live Site URL: [GitHub Page](https://maurodollinger.github.io/interactive-comment-section/build/)
 
 ## My process
 
