@@ -3,6 +3,7 @@ import AddComment from "../AddComment/AddComment";
 import Modal from "../Modal/Modal";
 import CommentsSection from "../CommentsSection/CommentsSection";
 import { AuthContextProvider } from "../../Context/auth-context";
+import Log from "../Log/Log";
 import { database } from "../../firebaseConfig";
 import {
   getDatabase,
@@ -14,11 +15,10 @@ import {
   set,
   remove,
 } from "firebase/database";
-import ErrorModal from "../ErrorModal/ErrorModal";
 
 function Home() {
   const [modalOpen, setModalOpen] = useState({ open: false, id: 0, path: "" });
-  const [errorLog, setErrorLog] = useState({
+  const [messageLog, setMessageLog] = useState({
     open: false,
     message: "",
     error: "",
@@ -37,28 +37,26 @@ function Home() {
           const users = Object.values(data.users);
           const randomUser = users[Math.floor(Math.random()*users.length)];
           setCurrentUser(randomUser);
+          printMessageLog("You have succesfully logged in as " + randomUser.username, "");
         } else {
-          setErrorLog({
-            open: true,
-            message: "No data available: ",
-            error: "error",
-          });
-          setTimeout(() => {
-            setErrorLog({ open: false, message: "", error: "" });
-          }, 3000);
+            printMessageLog("No data available: ", "error");
         }
       })
       .catch((error) => {
-        setErrorLog({
-          open: true,
-          message: "Error loading comment: ",
-          error: error,
-        });
-        setTimeout(() => {
-          setErrorLog({ open: false, message: "", error: "" });
-        }, 3000);
+        printMessageLog("Error loading content: ", error);
       });
   }, []);
+
+  const printMessageLog = (message,error) =>{
+    setMessageLog({
+        open: true,
+        message: message,
+        error: error,
+    });
+    setTimeout(() => {
+    setMessageLog({ open: false, message: message, error: error });
+    }, 3000);
+  }
 
   const openModal = (id, path) => {
     setModalOpen({ open: true, id: id, path: path });
@@ -88,14 +86,7 @@ function Home() {
         setComments([...comments, newComment]);
       })
       .catch((error) => {
-        setErrorLog({
-          open: true,
-          message: "Error adding comment: ",
-          error: error,
-        });
-        setTimeout(() => {
-          setErrorLog({ open: false, message: "", error: "" });
-        }, 3000);
+        printMessageLog("Error adding content: ", error);
       });
   };
 
@@ -121,14 +112,7 @@ function Home() {
         setComments(newComments);
       })
       .catch((error) => {
-        setErrorLog({
-          open: true,
-          message: "Error adding response: ",
-          error: error,
-        });
-        setTimeout(() => {
-          setErrorLog({ open: false, message: "", error: "" });
-        }, 3000);
+        printMessageLog("Error adding response: ", error);
       });
   };
 
@@ -163,14 +147,7 @@ function Home() {
         setComments(filteredComments);
       })
       .catch((error) => {
-        setErrorLog({
-          open: true,
-          message: "Error deleting data: ",
-          error: error,
-        });
-        setTimeout(() => {
-          setErrorLog({ open: false, message: "", error: "" });
-        }, 3000);
+        printMessageLog("Error deleting data: ", error);
       });
   };
 
@@ -199,14 +176,7 @@ function Home() {
         setComments(newComments);
       })
       .catch((error) => {
-        setErrorLog({
-          open: true,
-          message: "Error updating comment: ",
-          error: error,
-        });
-        setTimeout(() => {
-          setErrorLog({ open: false, message: "", error: "" });
-        }, 3000);
+        printMessageLog("Error updating comment: ", error);
       });
   };
 
@@ -241,14 +211,7 @@ function Home() {
         setComments(newComments);
       })
       .catch((error) => {
-        setErrorLog({
-          open: true,
-          message: "Error updating comment: ",
-          error: error,
-        });
-        setTimeout(() => {
-          setErrorLog({ open: false, message: "", error: "" });
-        }, 3000);
+        printMessageLog("Error updating comment: ", error);
       });
   };
 
@@ -289,11 +252,12 @@ function Home() {
               path={modalOpen.path}
             ></Modal>
           )}
-          <ErrorModal
-            active={errorLog.open}
-            message=""
-            dismiss={() => setErrorLog({ open: false, message: "", error: "" })}
-          ></ErrorModal>
+          <Log
+            active={messageLog.open}
+            message={messageLog.message}
+            error={messageLog.error}
+            dismiss={() => setMessageLog({ open: false, message: "", error: "" })}
+          ></Log>
         </AuthContextProvider>
       ) : (
         <section className="loading">Loading comments...</section>
