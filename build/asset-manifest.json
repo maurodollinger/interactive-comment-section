@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/interactive-comment-section/build/static/css/main.f5348eb5.css",
-    "main.js": "/interactive-comment-section/build/static/js/main.ea55f7af.js",
+    "main.css": "/interactive-comment-section/build/static/css/main.acd79986.css",
+    "main.js": "/interactive-comment-section/build/static/js/main.806d84f6.js",
     "static/js/787.ba7a5089.chunk.js": "/interactive-comment-section/build/static/js/787.ba7a5089.chunk.js",
     "index.html": "/interactive-comment-section/build/index.html",
-    "main.f5348eb5.css.map": "/interactive-comment-section/build/static/css/main.f5348eb5.css.map",
-    "main.ea55f7af.js.map": "/interactive-comment-section/build/static/js/main.ea55f7af.js.map",
+    "main.acd79986.css.map": "/interactive-comment-section/build/static/css/main.acd79986.css.map",
+    "main.806d84f6.js.map": "/interactive-comment-section/build/static/js/main.806d84f6.js.map",
     "787.ba7a5089.chunk.js.map": "/interactive-comment-section/build/static/js/787.ba7a5089.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.f5348eb5.css",
-    "static/js/main.ea55f7af.js"
+    "static/css/main.acd79986.css",
+    "static/js/main.806d84f6.js"
   ]
 }
